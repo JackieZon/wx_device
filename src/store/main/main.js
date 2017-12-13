@@ -414,13 +414,10 @@ const actions = {
 
         dispatch('SendCmd', { cmd: Cmd.FlashingWarningThreshold, data: '02' + bytesToHex([ratemax].concat(steptarget, [tempdiff])) });
 
-        dispatch('taskQueueExec', { isSetSuccess: true })
-
+        // dispatch('taskQueueExec', { isSetSuccess: true })
         // if (rawDeviceSetHeartRateMax != heartRateCountRemind ||
         //     rawDeviceSetStepTarget != sportTarget ||
         //     rawDeviceSetTempDiff != temperatureDifferenceValue) {
-            
-
         // }
         // else {
         //     l.w('设置提醒阀值跳过')

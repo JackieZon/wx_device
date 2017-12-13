@@ -8,7 +8,7 @@
     }
     body {
       background: #ebebeb;
-    }</style><script src=./static/js/flexible.js></script><script src=http://res.wx.qq.com/open/js/jweixin-1.2.0.js></script><script src=./static/js/base.js></script><script src=./static/js/jquery.js></script><script src=./static/js/vconsole.min.js></script><script>function getUrlParam(name) {
+    }</style><script src=./static/js/flexible.js></script><script src=http://res.wx.qq.com/open/js/jweixin-1.2.0.js></script><script src=./static/js/base.js></script><script src=./static/js/jquery.js></script><script>function getUrlParam(name) {
           // 构造一个含有目标参数的正则表达式对象、匹配目标参数
           var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
           var param = window.location.search.substr(1).match(reg);
@@ -20,8 +20,10 @@
               return null;
           }
       }
+
       (function(){
         var route =getUrlParam('route');
-        if(route && location.hash =='')
-         location.href = '#'+ route;
-      })()</script><link href=./static/css/app.eaf79157232f34230c55bb35ae87af77.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=./static/js/manifest.538b56553f4cf3921d42.js></script><script type=text/javascript src=./static/js/vendor.18716e93de44d429b590.js></script><script type=text/javascript src=./static/js/app.a3aedbea757c2fc39be9.js></script></body><script async=async>var vConsole = new VConsole();</script></html>
+        window.localStorage.setItem('route',route)
+        // if(route && location.hash =='')
+        //  location.href = '#'+ route;
+      })()</script><link href=./static/css/app.eaf79157232f34230c55bb35ae87af77.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=./static/js/manifest.895a741b969118f555b9.js></script><script type=text/javascript src=./static/js/vendor.048fe69c336f13a7d099.js></script><script type=text/javascript src=./static/js/app.f93004841c371caafb2a.js></script></body><script async=async>//  var vConsole = new VConsole();</script></html>
