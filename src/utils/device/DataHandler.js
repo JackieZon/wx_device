@@ -291,8 +291,6 @@ export function LCDDisplayDataHandler(t_data) {
     DataHandler.call(this, Cmd.LCDDisplayData, 14, t_data);
     if (typeof LCDDisplayDataHandler._initialized == "undefined") {
         LCDDisplayDataHandler.prototype.DecodePacket = function (packet) {
-
-            l.i('LCDDisplayDataHandler.DecodePacket')
             this.ReceiveDataDomain = packet.FrameNum.datadomain;
             //通用回复处理
             //this.HistoryDataReply(packet);
@@ -304,8 +302,6 @@ export function LCDDisplayDataHandler(t_data) {
                 //     //立即开始读取
                 //     //vm.ReadHistory();
                 // }
-                l.i('开始调用taskQueueExec')
-
                 //if (!vm.config.LCDDisplayDataHandlerSuccessFlag)
                     dispatch('taskQueueExec', { isSetSuccess: true })
 
