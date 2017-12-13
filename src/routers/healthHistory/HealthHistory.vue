@@ -121,6 +121,7 @@
     require('echarts/lib/component/title')
     import { getHistoryData } from "./../../sverse/api.js"
     import { mapState } from 'vuex'
+    import { unique } from './../../utils/base'
     export default {
         data() {
             return {
@@ -219,12 +220,17 @@
                     //     "surfaceTemList": [30.8,31.8,32.4,32.5],
                     //     "hrX": ["\"09:00\"","\"16:11\"", "\"17:00\"","\"18:00\""]
                     // }
+                    
+                    /**@augments 心率 */
 
                     if(typeof(data.hrMap)=='object'){
 
                         let hrX = data.hrMap.hrX.map((i)=>{
                             return JSON.parse(i)
                         })
+
+                        hrX = unique(hrX)
+                        data.hrMap.hrValueList = unique(data.hrMap.hrValueList)
 
                         hrX.map((item,index)=>{
                             t_data.dataHeartRate.push({name: item,value: [selectedDate+' '+item, data.hrMap.hrValueList[index]]});
@@ -247,6 +253,9 @@
                             return JSON.parse(i)
                         })
 
+                        stX = unique(stX)
+                        data.stMap.surfaceTemList = unique(data.stMap.surfaceTemList)
+
                         stX.map((item,index)=>{
                             t_data.dataHandSkinTemp.push({name: item, value:[selectedDate+' '+item, data.stMap.surfaceTemList[index]]})
                         })
@@ -259,9 +268,12 @@
                             return JSON.parse(i)
                         })
 
-                        enviX.map((item,index)=>{
+                        enviX = unique(enviX)
+                        data.enviMap.temperatureList = unique(data.enviMap.temperatureList)
+                        data.enviMap.humidityList = unique(data.enviMap.humidityList)
+                        data.enviMap.pressList = unique(data.enviMap.pressList)
 
-                            console.log(data.enviMap.temperatureList[index])
+                        enviX.map((item,index)=>{
 
                             t_data.dataWristTemperature.push({name: item,value: [selectedDate+' '+item, data.enviMap.temperatureList[index]]});
                             t_data.dataWristHumidity.push({name: item,value: [selectedDate+' '+item, data.enviMap.humidityList[index]]});

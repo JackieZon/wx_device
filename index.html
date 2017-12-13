@@ -43,9 +43,11 @@
       (function(){
         var route =getUrlParam('route');
         window.localStorage.setItem('route',route)
-        if(route && location.hash =='')
-         location.href = '#'+ route;
+        if(route){
+          location.href = '#/'+ route;
+        }
       })()
+      
   </script>
 </head>
 

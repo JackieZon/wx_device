@@ -14,7 +14,7 @@ import { alert } from './utils/toast'
 export default {
   name: 'app',
   created(){
-    
+
     /**公众号按钮跳转 */
     // let route = window.localStorage.getItem('route')
     // console.log(`正在前往路由:${route||'暂无'}`)
@@ -36,9 +36,9 @@ export default {
   watch:{
       '$route' (to, from) {
         console.log(to)
-        if(to.name==''){
-          $('title').html('hesvit')
-        }
+        // if(to.name==''){
+        //   $('title').html('hesvit')
+        // }
         if(to.name=='DeviceSet'){
           $('title').html('我的设备')
         }

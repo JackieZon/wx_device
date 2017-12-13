@@ -3,6 +3,21 @@ import axiosApi from './axios'
 import { apiUrl } from './subei_config'
 
 /**
+ * 遍历arr，把元素分别放入tmp数组(不存在才放)
+ * @param { Array } arr 
+ */
+export function unique(arr){
+  var tmp = new Array();
+  for(var i in arr){
+  //该元素在tmp内部不存在才允许追加
+  if(tmp.indexOf(arr[i])==-1){
+    tmp.push(arr[i]);
+  }
+  }
+  return tmp;
+}
+
+/**
  * 控制台打印
  */
 export const l = {
@@ -222,8 +237,6 @@ export const wx_config = () => {
         });
       
       })
-      
-    })  
-
-
+    })
 }
+
