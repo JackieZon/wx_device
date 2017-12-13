@@ -14,12 +14,13 @@ import { alert } from './utils/toast'
 export default {
   name: 'app',
   created(){
+    
     /**公众号按钮跳转 */
-    let route = window.localStorage.getItem('route')
-    console.log(`正在前往路由:${route||'暂无'}`)
-    if(route){
-      this.$route.push({name:route ,params:{}})
-    }
+    // let route = window.localStorage.getItem('route')
+    // console.log(`正在前往路由:${route||'暂无'}`)
+    // if(route){
+    //   this.$route.push({name:route ,params:{}})
+    // }
 
   },
   mounted () {
