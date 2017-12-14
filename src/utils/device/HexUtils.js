@@ -171,7 +171,8 @@ export function base64ToBytes(base64String) {
 
 
 /**
- *  Byte数组转Number
+ * Byte数组转Number
+ * 将 二进制 转换成 十进制数字
  * @Param array Byte数组
  * @return Hex字符串
  **/
@@ -183,6 +184,7 @@ export function bytesToNumber(bytes) {
 
 /**
 * 将Hex字符串转换成Byte数组
+* 将(16进制)转换成(二进制)
 * @param hex Hex字符串
 * @return Byte数组[0x00,0x00]
 */
@@ -194,6 +196,7 @@ export function hexToBytes(hex) {
 
 /**
 *  Byte数组转Hex字符串
+*  将(二进制)转换成(16进制)
 * @Param array Byte数组
 * @return Hex字符串
 **/
@@ -207,6 +210,7 @@ export function bytesToHex(bytes) {
 
 /**
 * 将Hex字符串转换成Byte
+* 将(16进制)转换成(二进制)
 * @param hex Hex字符串
 * @return Byte 0x00
 */
@@ -216,6 +220,7 @@ export function hexToByte(hex) {
 
 /**
 *  Byte转Hex字符串
+*  将(二进制)转换成(16进制)
 * @Param array Byte
 * @return Hex字符串 0A
 **/

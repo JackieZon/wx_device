@@ -64,7 +64,7 @@ export const config = (store, $router) => {
                         if (vm.deviceInfo.wecDeviceId == '' || vm.deviceInfo.wecDeviceId == res.deviceInfos[i].deviceId)
                         {
                             l.e('设备信息')
-                            console.error(res.deviceInfos)
+                            l.e(res.deviceInfos)
                             window.localStorage.setItem('wecDeviceId', res.deviceInfos[i].deviceId)
                             // commit('deviceInfoSet',{deviceId: res.deviceInfos[i].deviceId})
                             commit('deviceInfoSet',{connectState: true})
@@ -73,6 +73,7 @@ export const config = (store, $router) => {
                         l.i(res.deviceInfos[i].deviceId + '已连接');
                     }
                     else if (res.deviceInfos[i].state === 'disconnected') {
+                        // 链接设备
                         wx.invoke('connectWXDevice', { 'deviceId': res.deviceInfos[i].deviceId }, function (re) {
                             console.log('connectWXDevice', re);
                         });
@@ -274,6 +275,7 @@ export function wx_configs(callback) {
 
 /**
 *  获取封包字节数组
+*  反解析Base64字符
 * @Param byte数组
 **/
 export function DecodePacket(bytes) {
