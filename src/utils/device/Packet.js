@@ -297,10 +297,12 @@ export function EncodePacket(cmd, hexstr, frameNum) {
 
     //本帧编号
     var frameNumBytes;
-    if (typeof frameNum == "undefined")
+    if (typeof frameNum == "undefined"){
         frameNumBytes = [GetFrameNum(true, 1)];
-    else
+    }
+    else{
         frameNumBytes = [frameNum]
+    }
 
     //指令字节
     var cmdBytes = [cmd];

@@ -195,8 +195,8 @@ export function hexToBytes(hex) {
 }
 
 /**
-*  Byte数组转Hex字符串
-*  将(二进制)转换成(16进制)
+*  数字数组转Hex字符串
+*  将(十进制)转换成(16进制)
 * @Param array Byte数组
 * @return Hex字符串
 **/

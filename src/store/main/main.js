@@ -11,30 +11,30 @@ let state = {
     taskQueue: [
         {
             name: 'getLCDDisplayData',
-            isExec: false
+            isExec: true
         },
         {
             name: 'setLCDDTime',
-            isExec: false
+            isExec: true
         },
         {
             name: 'getBattery',
-            isExec: false
+            isExec: true
         },
         {
             //读取里程信息
             name: 'getLCDDisplayDataNew',
-            isExec: false
+            isExec: true
         },
         {
             //读取提醒阈值
             name: 'getFlashingWarningThreshold',
-            isExec: false
+            isExec: true
         },
         {
             //设置提醒阈值
             name: 'setFlashingWarningThreshold',
-            isExec: false
+            isExec: true
         },
         {
             //读取个人信息(身高体重)
@@ -49,32 +49,32 @@ let state = {
         {
             //读取版本
             name: 'getUserCodeVer',
-            isExec: false
+            isExec: true
         },
         {
             //节日提醒
             name: 'getHolidayReminder',
-            isExec: false
+            isExec: true
         },
         {
             //读取运动历史
             name: 'getSport',
-            isExec: false
+            isExec: true
         },
         {
             //读取睡眠
             name: 'getSleep',
-            isExec: false
+            isExec: true
         },
         {
             //读取温湿度气压
             name: 'getTempRHPress',
-            isExec: false
+            isExec: true
         },
         {
             //读取历史脉搏数据
             name: 'getHistoricalPulse',
-            isExec: false
+            isExec: true
         },
     ],
     taskQueueIndex: 0,
@@ -370,6 +370,7 @@ const actions = {
             && (state.userInfo.height != state.deviceInfo.Height || state.userInfo.weight != state.deviceInfo.Weight)) {
             const { height, weight } = state.userInfo
             l.w(`Height:${height},Weight:${weight}`)
+            console.log(`设置的身高数据:${bytesToHex([height, weight])}`)
             dispatch('SendCmd', { cmd: Cmd.personalInfo, data: '02' + bytesToHex([height, weight]) });
         }
         else {
@@ -436,9 +437,9 @@ const actions = {
         if (typeof (window.dataHandler) !== 'function') {
             window.dataHandler = new DataHandler(undefined, undefined, t_data)
         }
-        window.dataHandler.SendCount = 1;
-        window.dataHandler.NeedReply = true;
-        window.dataHandler.DataDomain = 0;
+        window.dataHandler.SendCount = 1;       // 重发次数
+        window.dataHandler.NeedReply = true;    // 是否为必须回复
+        window.dataHandler.DataDomain = 0;      // 数据域定义
 
         senddataBytes(state.deviceInfo.wecDeviceId, {
             cmd: payload.cmd,
