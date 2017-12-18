@@ -11,30 +11,30 @@ let state = {
     taskQueue: [
         {
             name: 'getLCDDisplayData',
-            isExec: true
+            isExec: false
         },
         {
             name: 'setLCDDTime',
-            isExec: true
+            isExec: false
         },
         {
             name: 'getBattery',
-            isExec: true
+            isExec: false
         },
         {
             //读取里程信息
             name: 'getLCDDisplayDataNew',
-            isExec: true
+            isExec: false
         },
         {
             //读取提醒阈值
             name: 'getFlashingWarningThreshold',
-            isExec: true
+            isExec: false
         },
         {
             //设置提醒阈值
             name: 'setFlashingWarningThreshold',
-            isExec: true
+            isExec: false
         },
         {
             //读取个人信息(身高体重)
@@ -49,32 +49,32 @@ let state = {
         {
             //读取版本
             name: 'getUserCodeVer',
-            isExec: true
+            isExec: false
         },
         {
             //节日提醒
             name: 'getHolidayReminder',
-            isExec: true
+            isExec: false
         },
         {
             //读取运动历史
             name: 'getSport',
-            isExec: true
+            isExec: false
         },
         {
             //读取睡眠
             name: 'getSleep',
-            isExec: true
+            isExec: false
         },
         {
             //读取温湿度气压
             name: 'getTempRHPress',
-            isExec: true
+            isExec: false
         },
         {
             //读取历史脉搏数据
             name: 'getHistoricalPulse',
-            isExec: true
+            isExec: false
         },
     ],
     taskQueueIndex: 0,
