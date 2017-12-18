@@ -119,7 +119,7 @@ export function bytesToBase64(array) {
 
 
 /**
- * 将Base64字符串转换成Byte数组
+ * 将 (Base64) 字符串转换成 (16进制) 数据
  * @param base64String 字符串
  * @return Byte数组[0x00,0x00]
  */
