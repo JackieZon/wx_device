@@ -55,27 +55,32 @@ export const config = (store, $router) => {
 
             if (res.err_msg === 'getWXDeviceInfos:ok') {
 
-                var deviceNum = res.deviceInfos.length;  // 绑定设备总数量 
-                l.i(res.deviceInfos);
+                var deviceNum = res.deviceInfos.length;  // 绑定设备总数量
+                console.log(`设备列表`)
+                console.log(res.deviceInfos)
                 for (var i = 0; i < deviceNum; i++) {
                     if (res.deviceInfos[i].state === 'connected') {
 
                         //等于当前控制的设备则更新连接状态
+                        console.log(`vm.deviceInfo.wecDeviceId:${vm.deviceInfo.wecDeviceId}; res.deviceInfos[i].deviceId:${res.deviceInfos[i].deviceId}; 空或相等条件值：${vm.deviceInfo.wecDeviceId == '' || vm.deviceInfo.wecDeviceId == res.deviceInfos[i].deviceId}`)
+                        console.log('已连接的设备信息')
+                        console.log(res.deviceInfos[i])
+                        
                         if (vm.deviceInfo.wecDeviceId == '' || vm.deviceInfo.wecDeviceId == res.deviceInfos[i].deviceId)
                         {
-                            l.e('设备信息')
-                            l.e(res.deviceInfos)
                             window.localStorage.setItem('wecDeviceId', res.deviceInfos[i].deviceId)
                             // commit('deviceInfoSet',{deviceId: res.deviceInfos[i].deviceId})
                             commit('deviceInfoSet',{connectState: true})
                         }
-
                         l.i(res.deviceInfos[i].deviceId + '已连接');
+                        break;
                     }
                     else if (res.deviceInfos[i].state === 'disconnected') {
+                        console.log('执行连接设备')
                         // 链接设备
-                        wx.invoke('connectWXDevice', { 'deviceId': res.deviceInfos[i].deviceId }, function (re) {
-                            console.log('connectWXDevice', re);
+                        wx.invoke('connectWXDevice', { 'deviceId': res.deviceInfos[i].deviceId }, function (res) {
+                            console.log('执行连接设备返回数据')
+                            console.log('connectWXDevice', res);
                         });
                     }
                 }
@@ -114,7 +119,7 @@ export const config = (store, $router) => {
             }
         });
 
-        // 设备连接状态变化
+        // 蓝牙打开状态变化
         wx.on('onWXDeviceBluetoothStateChange', function (res) {
             l.w("onWXDeviceBluetoothStateChange:" + formatJson(JSON.stringify(res)));
             switch (res.state) {
@@ -155,10 +160,14 @@ export const config = (store, $router) => {
 
         // 接收到蓝牙设备数据
         wx.on('onReceiveDataFromWXDevice', function (res) {
+            console.log('蓝牙返回数据')
+            console.log(res)
             l.l("onReceiveDataFromWXDevice:" + formatJson(JSON.stringify(res)));
             if (res.base64Data) {
 
                 var bytes = base64ToBytes(res.base64Data)
+                console.log('返回base64数据转成16进制数据')
+                console.log(bytes)
                 //包头55aa
                 if (bytes.length > 1 && bytes[0] == 0xAA && bytes[1] == 0x55) {
                     if (sendTimeOut != null) {
@@ -344,9 +353,12 @@ export function senddataToDevice(selDeviceID, packetObj, cmdBytes) {
     var x = 0;
 
     l.l("开始发送数据HEX:");
-    l.i(bytesToHex(cmdBytes));
+    // l.i(bytesToHex(cmdBytes));
     var base64Data = bytesToBase64(cmdBytes);
-    l.i(base64Data);
+
+    console.log('发送的base64数据')
+    console.log(base64Data)
+
     WeixinJSBridge.invoke('sendDataToWXDevice', {
         "deviceId": selDeviceID,
         "base64Data": base64Data

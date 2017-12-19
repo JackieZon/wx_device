@@ -125,6 +125,7 @@ export function bytesToBase64(array) {
  */
 export function base64ToBytes(base64String) {
     var result = new Array();
+    // 用base64String字符串模以4 的余数来判断是否是正规的base64
     if (base64String.length % 4 != 0 || base64String.length == 0) {
         return result;
     }

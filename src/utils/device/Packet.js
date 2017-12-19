@@ -354,11 +354,16 @@ export function Packet(bytes) {
         return false;
     }
 
+    // 当前16进制数据
     this.RawHex = bytes;
 
+    // 得到返回数据对应位置的数据长度 【 DataLenLen 】
     this.DataLen = bytes.slice(PacketLenConfig.PacketStartLen, PacketLenConfig.PacketStartLen + PacketLenConfig.DataLenLen)[0];
-
+    
+    //帧头+数据对应的位置
     var FrameNumindex = PacketLenConfig.PacketStartLen + PacketLenConfig.DataLenLen;
+    
+    //截取（帧头+数据位置）到本帧编号的位置的 本帧编号
     this.FrameNum = DecodeFrameNum(bytes.slice(FrameNumindex, FrameNumindex + PacketLenConfig.FrameNumLen)[0]);
 
     var Cmdindex = PacketLenConfig.PacketStartLen + PacketLenConfig.DataLenLen + PacketLenConfig.FrameNumLen;
