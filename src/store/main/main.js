@@ -437,8 +437,10 @@ const actions = {
         if (typeof (window.dataHandler) !== 'function') {
             window.dataHandler = new DataHandler(undefined, undefined, t_data)
         }
+
+        // 发送的本帧编号
         window.dataHandler.SendCount = 1;       // 重发次数
-        window.dataHandler.NeedReply = true;    // 是否为必须回复
+        window.dataHandler.NeedReply = true;    // 是否为必须应答
         window.dataHandler.DataDomain = 0;      // 数据域定义
 
         senddataBytes(state.deviceInfo.wecDeviceId, {
@@ -447,6 +449,7 @@ const actions = {
             dataHandler: window.dataHandler,
             t_data: t_data
         })
+        
     },
     getSleep({ commit, state, dispatch, getters }, payload) {
         var t_data = this;

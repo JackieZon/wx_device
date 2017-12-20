@@ -166,9 +166,10 @@ export const config = (store, $router) => {
             if (res.base64Data) {
 
                 var bytes = base64ToBytes(res.base64Data)
-                console.log('返回base64数据转成16进制数据')
+                // 对应字节返回对应数组 值为10进制数据
+                console.log('返回base64数据转成10进制数据')
                 console.log(bytes)
-                //包头55aa
+                //包头AA55
                 if (bytes.length > 1 && bytes[0] == 0xAA && bytes[1] == 0x55) {
                     if (sendTimeOut != null) {
                         clearTimeout(sendTimeOut);
@@ -295,6 +296,7 @@ export function DecodePacket(bytes) {
         pack.DecodePacket();
     }
     else {
+        // 解包失败 重新发送
         l.e('解包失败');
         if (!(typeof lastDeviceID == "undefined")) {
             resenddataBytes(lastDeviceID, lastpacketObj, 4);
@@ -308,6 +310,7 @@ export function DecodePacket(bytes) {
 
 
 /**
+*  开始执行发送数据
 *  获取封包字节数组
 * @Param selDeviceID 数组
 * @Param packetObj 数组

@@ -414,14 +414,16 @@
                     //         color: seriesColor,
                     //     }
                     // },
-                    showSymbol: false,
+                    showSymbol: true,
+                    showAllSymbol: false,
                     hoverAnimation: false,
                     data: seriesData
                 },
                 {
                     name: typeName,
                     type: 'line',
-                    showSymbol: false,
+                    showSymbol: true,
+                    showAllSymbol: false,
                     data: anchor,
                     itemStyle: {normal: {opacity: 0}},
                     lineStyle: {normal: {opacity: 0}}
@@ -514,7 +516,8 @@
                             //     //     color: seriesColorArr[0],
                             //     // }
                             // },
-                            showSymbol: false,
+                            showSymbol: true,
+                            showAllSymbol: false,
                             hoverAnimation: false,
                             data: seriesDataArr[0]
                         },
@@ -522,7 +525,8 @@
                             name:seriesNameArr[1],
                             type:'line',
                             yAxisIndex:1,
-                            showSymbol: false,
+                            showSymbol: true,
+                            showAllSymbol: false,
                             hoverAnimation: false,
                             // lineStyle: {
                             //     // normal: {
@@ -534,7 +538,8 @@
                         {
                             name: typeName,
                             type: 'line',
-                            showSymbol: false,
+                            showSymbol: true,
+                            showAllSymbol: false,
                             data: anchor,
                             itemStyle: {normal: {opacity: 0}},
                             lineStyle: {normal: {opacity: 0}}

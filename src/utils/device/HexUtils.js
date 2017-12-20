@@ -119,12 +119,13 @@ export function bytesToBase64(array) {
 
 
 /**
- * 将 (Base64) 字符串转换成 (16进制) 数据
+ * 将 (Base64) 字符串转换成 (10进制) 数据
  * @param base64String 字符串
  * @return Byte数组[0x00,0x00]
  */
 export function base64ToBytes(base64String) {
     var result = new Array();
+    // 所有(字节)转成(base64)前必须是(8位)二进制字节 转换流程  值 => ASCII对应码 => 00000000(二进制) => 一个字节(8位)至少转成两组二进制(分成两组6位的二进制位，不够在尾数补零) => 4位base64字符
     // 用base64String字符串模以4 的余数来判断是否是正规的base64
     if (base64String.length % 4 != 0 || base64String.length == 0) {
         return result;

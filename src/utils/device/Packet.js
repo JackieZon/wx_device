@@ -270,6 +270,7 @@ export function DecodeFrameNum(framenum) {
 15  数据总长度	1	1	1	1	数据域为《数据长度》
     */
 
+    // 本帧编号为一个字节，转换成8位二进制数据
     var FrameNumStr = Number(framenum).toString(2).PadLeft(8);
     var datadomain = parseInt(FrameNumStr.slice(0, 4), 2);
     var needreply = parseInt(FrameNumStr.slice(4, 5), 2);
@@ -354,25 +355,25 @@ export function Packet(bytes) {
         return false;
     }
 
-    // 当前16进制数据
+    // 当前对应字节的10进制数组
     this.RawHex = bytes;
 
-    // 得到返回数据对应位置的数据长度 【 DataLenLen 】
+    // 截取数据长度字节  得到返回数据对应位置的数据长度 【 DataLenLen 】
     this.DataLen = bytes.slice(PacketLenConfig.PacketStartLen, PacketLenConfig.PacketStartLen + PacketLenConfig.DataLenLen)[0];
     
-    //帧头+数据对应的位置
+    // 截取本帧编号字节(1) 截取（帧头+数据位置）到本帧编号的位置的 
     var FrameNumindex = PacketLenConfig.PacketStartLen + PacketLenConfig.DataLenLen;
-    
-    //截取（帧头+数据位置）到本帧编号的位置的 本帧编号
     this.FrameNum = DecodeFrameNum(bytes.slice(FrameNumindex, FrameNumindex + PacketLenConfig.FrameNumLen)[0]);
 
+    // 截取命令字节(1)
     var Cmdindex = PacketLenConfig.PacketStartLen + PacketLenConfig.DataLenLen + PacketLenConfig.FrameNumLen;
     this.Cmd = bytes.slice(Cmdindex, Cmdindex + PacketLenConfig.CmdLen)[0];
 
+    // 截取传输的数据的长度（ 总长度 - 本帧编号长度 - 命令长度 ）
     var Dataindex = Cmdindex + PacketLenConfig.CmdLen;
     this.Data = bytes.slice(Dataindex, Dataindex + this.DataLen - PacketLenConfig.FrameNumLen - PacketLenConfig.CmdLen);
 
-    if (this.Data.length != (this.DataLen - 2)) {
+    if (this.Data.length != (this.DataLen - (PacketLenConfig.FrameNumLen+PacketLenConfig.CmdLen)) ) {
         l.e("解析失败，包长度错误，实际" + this.Data.length + "字节，声明" + (this.DataLen - 2) + "字节");
         return false;
     }
