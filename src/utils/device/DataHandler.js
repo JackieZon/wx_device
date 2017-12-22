@@ -156,7 +156,6 @@ export function DataHandler(cmd, framesize, t_data) {
 
                                 l.w(`心率${rawDeviceSetHeartRateMax},步数目标${rawDeviceSetStepTarget},温差${rawDeviceSetTempDiff}`)
 
-
                                 dispatch('taskQueueExec', { isSetSuccess: true })
                             }
                             else {
