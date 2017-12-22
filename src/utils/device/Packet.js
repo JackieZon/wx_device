@@ -467,5 +467,18 @@ export function GetCheckSum(dataBytes) {
         checksum += dataBytes[i];
     }
     checksum = checksum % 256;
+
+    console.log(`
+        计算校验和
+        计算过程:
+        var checksum = 0;
+        for (var i = 0; i < dataBytes.length; i++) {
+            checksum += dataBytes[i];
+        }
+        checksum: ${checksum}
+        checksum = checksum % 256;
+        checksum: ${checksum}
+    `)
+
     return checksum;
 }

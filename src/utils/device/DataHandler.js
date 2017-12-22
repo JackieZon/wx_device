@@ -185,7 +185,7 @@ export function DataHandler(cmd, framesize, t_data) {
                 case Cmd.holidayReminder:
                     {
                         if (packet.FrameNum.datadomain == 13) {
-                            l.w('读取节日提醒成功！')
+                            l.w('读取节日提醒成功 女性生理周期成功！')
                             dispatch('taskQueueExec', { isSetSuccess: true })
 
                             var remindonstate = bytesToNumber(packet.Data.slice(0, 1));

@@ -11,30 +11,31 @@ let state = {
     taskQueue: [
         {
             name: 'getLCDDisplayData',
-            isExec: true
+            isExec: false
         },
         {
+            // 同步时间
             name: 'setLCDDTime',
-            isExec: true
+            isExec: false
         },
         {
             name: 'getBattery',
-            isExec: true
+            isExec: false
         },
         {
             //读取里程信息
             name: 'getLCDDisplayDataNew',
-            isExec: true
+            isExec: false
         },
         {
             //读取提醒阈值
             name: 'getFlashingWarningThreshold',
-            isExec: true
+            isExec: false
         },
         {
             //设置提醒阈值
             name: 'setFlashingWarningThreshold',
-            isExec: true
+            isExec: false
         },
         {
             //读取个人信息(身高体重)
@@ -49,32 +50,32 @@ let state = {
         {
             //读取版本
             name: 'getUserCodeVer',
-            isExec: true
+            isExec: false
         },
         {
-            //节日提醒
+            //节日提醒 女性生理周期提醒
             name: 'getHolidayReminder',
-            isExec: true
+            isExec: false
         },
         {
             //读取运动历史
             name: 'getSport',
-            isExec: true
+            isExec: false
         },
         {
             //读取睡眠
             name: 'getSleep',
-            isExec: true
+            isExec: false
         },
         {
             //读取温湿度气压
             name: 'getTempRHPress',
-            isExec: true
+            isExec: false
         },
         {
             //读取历史脉搏数据
             name: 'getHistoricalPulse',
-            isExec: true
+            isExec: false
         },
     ],
     taskQueueIndex: 0,
@@ -246,7 +247,7 @@ const actions = {
                 && (sendTimeOut === null || ((new Date().getTime() / 1000 - lastSendSuccessTime.getTime() / 1000) > 13))
                 && (new Date().getTime() / 1000 - lastReceiveSuccessTime.getTime() / 1000) > 13
             ) {
-                commit('taskQueueTimeLastSet')
+                commit('taskQueueTimeLastSet') // 保存当前执行时间
                 dispatch('taskQueueExec', {})
             }
         }
@@ -274,8 +275,8 @@ const actions = {
                 dispatch('readLCDDataThead')
         }
 
-        console.error('taskQueue-isExec数据')
-        console.error(taskQueue[taskQueueIndex])
+        console.warn('taskQueue-isExec数据')
+        console.warn(taskQueue[taskQueueIndex])
         
         if (taskQueueIndex < taskQueue.length && taskQueue[taskQueueIndex]!=='undefined') {
             if (!taskQueue[taskQueueIndex].isExec) {
@@ -352,6 +353,8 @@ const actions = {
     setLCDDTime({ commit, state, dispatch, getters }, payload) {
         var now = new Date();
         var nowtimebytes = [now.getFullYear() - 2000, (now.getMonth() + 1), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds()];
+        console.log('同步设置时间')
+        console.log(bytesToHex(nowtimebytes))
         dispatch('SendCmd', { cmd: Cmd.setTime, data: bytesToHex(nowtimebytes) });
     },
     getBattery({ commit, state, dispatch, getters }, payload) {
@@ -407,9 +410,9 @@ const actions = {
 
         console.error(`heartRateRemind:${heartRateRemind},rawDeviceSetHeartRateMax:${rawDeviceSetHeartRateMax},heartRateCountRemind:${heartRateCountRemind},rawDeviceSetStepTarget:${rawDeviceSetStepTarget},sportTarget:${sportTarget},rawDeviceSetTempDiff:${rawDeviceSetTempDiff},temperatureDifferenceValue:${temperatureDifferenceValue}`)
          
-        const ratemax = heartRateRemind ? heartRateCountRemind : 0;
-        const steptarget = hexToBytes(Number( sportTargetRemind ? sportTarget : 0).toString(16).PadLeft(4)).reverse();
-        const tempdiff = parseInt('0' + Number(temperatureDifferenceRemind ? temperatureDifferenceValue : 0).toString(2).PadLeft(7), 2);
+        const ratemax = heartRateRemind ? heartRateCountRemind : 0; // 设置心率值
+        const steptarget = hexToBytes(Number( sportTargetRemind ? sportTarget : 0).toString(16).PadLeft(4)).reverse(); // 设置运动步数
+        const tempdiff = parseInt('0' + Number(temperatureDifferenceRemind ? temperatureDifferenceValue : 0).toString(2).PadLeft(7), 2);  // 设置温差提醒
         
         l.w(`设置提醒阀值执行ratemax:${ratemax},steptarget:${bytesToHex(steptarget)},sportTarget:${sportTarget},tempdiff:${tempdiff}`)
 
